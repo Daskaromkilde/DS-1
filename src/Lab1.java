@@ -5,27 +5,21 @@ public class Lab1 {
 
     // Insertion sort.
 
-    public static void insertionSort(int[] array) {
-        int tmpInt;
-        boolean isSorted = false;
-        int n = array.length-1;
-
-        while (!isSorted) {
-            tmpInt = array[n];
-            for (int i = n - 1 ; i >= 0; i--) {
-                if (tmpInt <= array[i]) {
-                    swap(array, n, i);
-                }
-            }
-            if (n == 0) {
-                isSorted = true;
-            }
-            n--;
-
+    public static void insertionSort(int[] arr) {
+        if (arr.length < 1) {
+            return;
         }
 
+        for (int i = 1; i < arr.length; i++) {
+            int current = arr[i];
+            int j = i - 1;
 
-       // throw new UnsupportedOperationException();
+            while (j > -1 && arr[j] > current) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = current;
+        }
     }
 
     // Swap two elements in an array
