@@ -32,6 +32,9 @@ public class Lab1 {
     // Quicksort.
 
     private static void quickSort(int[] a, int low, int high) {
+        if (a.length < 2) {
+            return;
+        }
 
      //   System.out.println(Arrays.toString(a));
 
@@ -82,12 +85,11 @@ public class Lab1 {
 
 
     // Mergesort.
-
     public static int[] mergeSort(int[] array) {
         int arrayLength = array.length;
 
         if (arrayLength < 2) {
-            //return;
+            return array;
         }
 
         int midIndex = arrayLength / 2;
@@ -102,34 +104,42 @@ public class Lab1 {
             rightHalf[i-midIndex] = array[i];
         }
 
-        mergeSort(leftHalf);
-        mergeSort(rightHalf);
+        return merge(mergeSort(leftHalf), mergeSort(rightHalf));
 
-
-
-        throw new UnsupportedOperationException();
     }
 
-    // Mergesort part of an array
-    private static int[] mergeSort(int[] array, int begin, int end) {
-        throw new UnsupportedOperationException();
-    }
 
     // Merge two sorted arrays into one
     private static int[] merge(int[] left, int[] right) {
         int leftSize = left.length;
         int rightSize = right.length;
+        int[] mergedArray = new int[leftSize + rightSize];
 
         int i = 0, j = 0, k = 0;
 
+        while (i < leftSize && j < rightSize) {
+            if (left[i] <= right[j]) {
+                mergedArray[k] = left[i];
+                i++;
+            } else {
+                mergedArray[k] = right[j];
+                j++;
+            }
+            k++;
+        }
 
+        while (i < leftSize) {
+            mergedArray[k] = left[i];
+            i++;
+            k++;
+        }
 
+        while (j < rightSize) {
+            mergedArray[k] = right[j];
+            j++;
+            k++;
+        }
 
-
-
-
-
-
-        throw new UnsupportedOperationException();
+        return mergedArray;
     }
 }
