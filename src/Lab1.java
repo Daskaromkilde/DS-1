@@ -32,42 +32,13 @@ public class Lab1 {
     // Quicksort.
 
     private static void quickSort(int[] a, int low, int high) {
-        if (a.length < 2) {
+
+        if (high <= low) {
             return;
         }
-
-     //   System.out.println(Arrays.toString(a));
-
         int pivot = partition(a, low, high);
-// assume that partition returns the
-// index where the pivot now is
-            low++;
-
-        for (int i = 1; i < a.length ; i++) {
-            if (low >= high){
-                int tmp = a[0];
-                a[0] = a[high];
-                a[high] = tmp;
-                return;
-            }
-            if(a[low] < pivot)
-            {
-                low++;
-            }
-            if(a[high] > pivot)
-            {
-                high--;
-            }if (a[high] < pivot && a[low] > pivot)
-            {
-                int tmp = a[low];
-                a[low] = a[high];
-                a[high] = tmp;
-            }
-        }
-     //   System.out.println(Arrays.toString(a));
-
-        //quickSort(a, low, pivot-1);
-        //quickSort(a, pivot+1, high);
+        quickSort(a, low, pivot -1);
+        quickSort(a, pivot + 1, high);
 
     }
 
@@ -79,7 +50,24 @@ public class Lab1 {
     // Partition part of an array, and return the index where the pivot
     // ended up.
     private static int partition(int[] array, int begin, int end) {
-        return array[begin];
+        int pivot = array[end];
+
+        int i = begin - 1;
+
+        for (int j = begin; j <= end - 1; j++) {
+            if (array[j] < pivot) {
+                i++;
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        i++;
+        int temp = array[i];
+        array[i] = array[end];
+        array[end] = temp;
+
+        return i;
     }
 
 
