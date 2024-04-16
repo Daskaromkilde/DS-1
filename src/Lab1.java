@@ -31,43 +31,53 @@ public class Lab1 {
 
     // Quicksort.
 
-    private static void quickSort(int[] a, int low, int high) {
 
-        if (high <= low) {
+
+    // Quicksort part of an array
+    private static void quickSort(int[] a, int low, int high) {
+        if(low>=high){
             return;
         }
-        int pivot = partition(a, low, high);
-        quickSort(a, low, pivot -1);
-        quickSort(a, pivot + 1, high);
 
+
+
+        int pivot = a[low];
+        int orgLow = low;
+        int orgHigh = high;
+        low++;
+        while (true) {
+            if(low >= high){
+                break;
+            }
+            while( low < a.length-1 && a[low] <= pivot && low <= high)
+            {
+                low++;
+            }
+            while (high > 0 && a[high] >= pivot && low <= high)
+            {
+                high--;
+            }
+            if(low < high) {
+                swap(a, low, high);
+            }
+        }
+        if(a[high] < a[orgLow]) {
+            swap(a, high, orgLow);
+        }
+        quickSort(a, orgLow, high-1);
+        quickSort(a, high+1, orgHigh);
     }
 
     // Quicksort part of an array
     public static void quickSort(int[] array) {
         quickSort(array, 0, array.length-1);
+
     }
 
     // Partition part of an array, and return the index where the pivot
     // ended up.
     private static int partition(int[] array, int begin, int end) {
-        int pivot = array[end];
-
-        int i = begin - 1;
-
-        for (int j = begin; j <= end - 1; j++) {
-            if (array[j] < pivot) {
-                i++;
-                int temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-        }
-        i++;
-        int temp = array[i];
-        array[i] = array[end];
-        array[end] = temp;
-
-        return i;
+        return array[begin];
     }
 
 
